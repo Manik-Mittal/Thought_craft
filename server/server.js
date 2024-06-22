@@ -2,9 +2,9 @@ const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
 const dotenv = require('dotenv');
-const connectDb = require('../config/db');
+const connectDb = require('./config/db');
 const app = express();
-//const userRoutes = require('./routes/userRoutes')
+const userRoutes = require('./routes/userRoute')
 
 //env config
 dotenv.config()
@@ -18,7 +18,7 @@ app.use(morgan('dev'))
 
 //********************************************* */
 //routes
-//  app.use('/api/v1/user', userRoutes)
+app.use('/api/v1/user', userRoutes)
 
 
 const PORT = process.env.PORT || 8080
