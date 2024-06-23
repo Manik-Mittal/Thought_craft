@@ -22,7 +22,7 @@ const Header = () => {
                 </Typography>
                 <Box display={'flex'} marginLeft={'auto'}>
                     <Button href="#text-buttons" sx={{ margin: 1, color: "white" }} LinkComponent={Link} to='/login'>Home</Button>
-                    <Button href="#text-buttons" sx={{ margin: 1, color: "white" }} LinkComponent={Link} to='/about'>About</Button>
+                    <Button href="#text-buttons" sx={{ margin: 1, color: "white" }} LinkComponent={Link} to='/home'>About</Button>
                     <Button href="#text-buttons" sx={{ margin: 1, color: "white" }} LinkComponent={Link} to='/register'>Services</Button>
                 </Box>
 

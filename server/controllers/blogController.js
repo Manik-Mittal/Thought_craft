@@ -1,110 +1,105 @@
-const blogModel =require('../model/blogModel')
+const blogModel = require('../model/blogModel')
 const userModel = require('../model/userModel')
 
 
 //get all blogs
-exports.getAllBlogsController = async(req,res)=>{
-    try{
-        const blogs=await blogModel.find({})
-            if(!blogs){
-                return res.status(405).send({
-                    success:false,
-                    message:"enter all the fields"
-                })
-
-            }
-            return res.status(200).send({
-                success:true,
-                blogCount:blogs.length,
-                message:"Blog diplayed",
-                blogs
+exports.getAllBlogsController = async (req, res) => {
+    try {
+        const blogs = await blogModel.find({}).populate('user')
+        if (!blogs) {
+            return res.status(405).send({
+                success: false,
+                message: "enter all the fields"
             })
+
+        }
+        return res.status(200).send({
+            success: true,
+            blogCount: blogs.length,
+            message: "Blog diplayed",
+            blogs
+        })
 
 
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         return res.status(500).send({
-            success:false,
-            message:"error in call back function"
+            success: false,
+            message: "error in call back function"
         })
     }
 
 
 }
 //create blogs
-exports.createBlogController = async(req,res)=>{
-    try{
-
-        const {title,description,image,user}=req.body
-        if(!title||!description||!image){
-            return res.status(405).send({
-                success:false,
-                message:"enter all the fields"
-            })
+exports.createBlogController = async (req, res) => {
+    try {
+        const { title, description, image, user } = req.body;
+        //validation
+        if (!title || !description || !image || !user) {
+            return res.status(400).send({
+                success: false,
+                message: "Please Provide ALl Fields",
+            });
         }
-        const newblog=new blogModel({title,description,image})
-        
-        const existinguser=await userModel.findById(user)
-
-        if(!existinguser){
-            return res.status(201).send({
-                success:false,
-                message:"unable to find user"
-            })
+        const exisitingUser = await userModel.findById(user);
+        //validaton
+        if (!exisitingUser) {
+            return res.status(404).send({
+                success: false,
+                message: "unable to find user",
+            });
         }
-        const session = await mongoose.startSession();
-        session.startTransaction();
-        await newblog.save({session})
-        existinguser.blogs.push(newblog);
-        await existinguser.save({session})
-        
-        await session.commitTransaction();
-        await newblog.save();
-        
-        return res.status(200).send({
-            success:true,
-            message:"Blog created"
-        })
-        
-    }
-    catch(error){
-        console.log(error)
-        return res.status(500).send({
-            success:false,
-            message:"error in call back function"
-        })
-    }
 
-}
+        const newBlog = new blogModel({ title, description, image, user });
 
+
+        await newBlog.save({});
+        exisitingUser.blogs.push(newBlog);
+        await exisitingUser.save({});
+        await newBlog.save();
+        return res.status(201).send({
+            success: true,
+            message: "Blog Created!",
+            newBlog,
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(400).send({
+            success: false,
+            message: "Error WHile Creting blog",
+            error,
+        });
+    }
+};
 
 //get single blog
-exports.getSingleBlogController = async(req,res)=>{
-    try{
-        const {id}=req.params
-    
+exports.getSingleBlogController = async (req, res) => {
+    try {
+        const { id } = req.params
+
         const blog = await blogModel.findById(id);
-        if(!blog){
+        if (!blog) {
             return res.status(405).send({
-                success:false,
-                message:"blog not found"
+                success: false,
+                message: "blog not found"
             })
 
         }
         return res.status(200).send({
-            success:true,
-            message:"Blog fetched",
+            success: true,
+            message: "Blog fetched",
             blog
-      
+
         })
 
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         return res.status(500).send({
-            success:false,
-            message:"error in call back function"
+            success: false,
+            message: "error in call back function"
         })
     }
 
@@ -112,46 +107,46 @@ exports.getSingleBlogController = async(req,res)=>{
 
 
 //delete blog
-exports.deleteBlogController = async(req,res)=>{
-    try{
-        const {id}=req.params
-        const blog =await blogModel.findByIdAndDelete(id).populate("user");
+exports.deleteBlogController = async (req, res) => {
+    try {
+        const { id } = req.params
+        const blog = await blogModel.findByIdAndDelete(id).populate("user");
         await blog.user.pull(blog);
         await blog.user.save();
-  
+
         return res.status(200).send({
-            success:true,
-            message:"deleted"
+            success: true,
+            message: "deleted"
         })
 
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         return res.status(500).send({
-            success:false,
-            message:"error in call back function"
+            success: false,
+            message: "error in call back function"
         })
     }
 
 }
 //update blog
-exports.updateBlogController= async(req,res)=>{
-    try{
-        const {id}=req.params
-        const {title,description,image}=req.body
-        const blog =await blogModel.findByIdAndUpdate(id,{...req.body},{new:true})
+exports.updateBlogController = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { title, description, image } = req.body
+        const blog = await blogModel.findByIdAndUpdate(id, { ...req.body }, { new: true })
         return res.status(200).send({
-            success:true,
-            message:"Blog created",
+            success: true,
+            message: "Blog created",
             blog
         })
 
     }
-    catch(error){
+    catch (error) {
         console.log(error)
         return res.status(500).send({
-            success:false,
-            message:"error in call back function"
+            success: false,
+            message: "error in call back function"
         })
     }
 
@@ -159,30 +154,30 @@ exports.updateBlogController= async(req,res)=>{
 
 //user blog controller
 
-exports.userBlogController=async (req,res)=>{
+exports.userBlogController = async (req, res) => {
     try {
-        const {id} =req.params
-        const userBlog=await userModel.findById(id).populate("blogs")
-        if(!userBlog){
+        const { id } = req.params
+        const userBlog = await userModel.findById(id).populate("blogs")
+        if (!userBlog) {
             return res.status(405).send({
-                success:false,
-                message:"blog not found with this id"
+                success: false,
+                message: "blog not found with this id"
             })
         }
         return res.status(200).send({
-            success:true,
-            message:"user blog",
+            success: true,
+            message: "user blog",
             userBlog
         })
     } catch (error) {
         console.log(error)
         return res.status(500).send({
-            success:false,
-            message:"error in call back function",
+            success: false,
+            message: "error in call back function",
             error
         })
-        
-        
+
+
     }
 
 }

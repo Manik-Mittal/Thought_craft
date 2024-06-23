@@ -9,7 +9,7 @@ exports.getAllUsers = async (req, res) => {
             message: 'all users data',
             users
         })
-        
+
     }
     catch (error) {
         console.log(error)
@@ -44,7 +44,9 @@ exports.registerController = async (req, res) => {
         await user.save();
         return res.status(200).send({
             message: 'user created',
-            success: true
+            success: true,
+            user
+
         })
 
     }
@@ -61,14 +63,14 @@ exports.registerController = async (req, res) => {
 //login
 exports.loginController = async (req, res) => {
     try {
-        const { email, password } = req.body
-        if (!email || !password) {
+        const { username, password } = req.body
+        if (!username || !password) {
             return res.status(401).send({
                 success: false,
                 message: "provide all the fields"
             })
         }
-        const user = await userModel.findOne({ email })
+        const user = await userModel.findOne({ username })
         if (!user) {
             return res.status(500).send({
                 success: false,
