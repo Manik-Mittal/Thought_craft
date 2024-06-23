@@ -18,6 +18,16 @@ const userSchema=new mongoose.Schema({
         required:[true,'password is must']
 
     },
+    blogs:[
+        {
+            type:mongoose.Types.ObjectId,
+            ref:'blog'
+        }
+ 
+
+    ]
+        
+    
 
 });
 

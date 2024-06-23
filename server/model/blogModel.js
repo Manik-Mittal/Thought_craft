@@ -12,6 +12,11 @@ const blogSchema =new mongoose.Schema({
     image :{
         type:String,
         required :[true,"image is required"]
+    },
+    user:
+    {
+        type:mongoose.Types.ObjectId,
+        ref:'user'
     }
 },    {
     timestamps:true

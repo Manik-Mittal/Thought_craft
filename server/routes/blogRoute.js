@@ -1,10 +1,9 @@
 const express = require('express')
 
 const { getAllBlogsController, getSingleBlogController, deleteBlogController,
-    updateBlogController, createBlogController } = require('../controllers/blogController')
+    updateBlogController, createBlogController, userBlogController } = require('../controllers/blogController')
 
 const router = express.Router();
-
 
 
 //routes
@@ -24,5 +23,8 @@ router.get('/all-blogs:id', getSingleBlogController)
 
 // //delete blog
 router.delete('/delete-blog:id', deleteBlogController)
+
+//get user blogs
+router.get('/user-blog:id',userBlogController)
 
 module.exports = router

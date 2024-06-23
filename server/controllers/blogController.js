@@ -1,4 +1,5 @@
 const blogModel =require('../model/blogModel')
+const userModel = require('../model/userModel')
 
 
 //get all blogs
@@ -35,7 +36,7 @@ exports.getAllBlogsController = async(req,res)=>{
 exports.createBlogController = async(req,res)=>{
     try{
 
-        const {title,description,image}=req.body
+        const {title,description,image,user}=req.body
         if(!title||!description||!image){
             return res.status(405).send({
                 success:false,
@@ -43,7 +44,24 @@ exports.createBlogController = async(req,res)=>{
             })
         }
         const newblog=new blogModel({title,description,image})
-        await newblog.save()
+        
+        const existinguser=await userModel.findById(user)
+
+        if(!existinguser){
+            return res.status(201).send({
+                success:false,
+                message:"unable to find user"
+            })
+        }
+        const session = await mongoose.startSession();
+        session.startTransaction();
+        await newblog.save({session})
+        existinguser.blogs.push(newblog);
+        await existinguser.save({session})
+        
+        await session.commitTransaction();
+        await newblog.save();
+        
         return res.status(200).send({
             success:true,
             message:"Blog created"
@@ -59,6 +77,8 @@ exports.createBlogController = async(req,res)=>{
     }
 
 }
+
+
 //get single blog
 exports.getSingleBlogController = async(req,res)=>{
     try{
@@ -89,11 +109,16 @@ exports.getSingleBlogController = async(req,res)=>{
     }
 
 }
+
+
 //delete blog
 exports.deleteBlogController = async(req,res)=>{
     try{
         const {id}=req.params
-        await blogModel.findByIdAndDelete(id);
+        const blog =await blogModel.findByIdAndDelete(id).populate("user");
+        await blog.user.pull(blog);
+        await blog.user.save();
+  
         return res.status(200).send({
             success:true,
             message:"deleted"
@@ -128,6 +153,36 @@ exports.updateBlogController= async(req,res)=>{
             success:false,
             message:"error in call back function"
         })
+    }
+
+}
+
+//user blog controller
+
+exports.userBlogController=async (req,res)=>{
+    try {
+        const {id} =req.params
+        const userBlog=await userModel.findById(id).populate("blogs")
+        if(!userBlog){
+            return res.status(405).send({
+                success:false,
+                message:"blog not found with this id"
+            })
+        }
+        return res.status(200).send({
+            success:true,
+            message:"user blog",
+            userBlog
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send({
+            success:false,
+            message:"error in call back function",
+            error
+        })
+        
+        
     }
 
 }
