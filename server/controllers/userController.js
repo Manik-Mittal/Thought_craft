@@ -9,7 +9,7 @@ exports.getAllUsers = async (req, res) => {
             message: 'all users data',
             users
         })
-
+        
     }
     catch (error) {
         console.log(error)

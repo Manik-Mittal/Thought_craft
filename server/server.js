@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const connectDb = require('./config/db');
 const app = express();
 const userRoutes = require('./routes/userRoute')
+const blogRoutes = require('./routes/blogRoute')
+
 
 //env config
 dotenv.config()
@@ -19,6 +21,7 @@ app.use(morgan('dev'))
 //********************************************* */
 //routes
 app.use('/api/v1/user', userRoutes)
+//app.use('/api/v1/blog', blogRoutes)
 
 
 const PORT = process.env.PORT || 8080
@@ -30,6 +33,7 @@ app.get('/', (req, res) => {
 
     })
 })
+
 
 
 app.listen(8080, () => {
