@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Blogcard from "../components/Blogcard";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 const Userblogs = () => {
     const [blogs, setBlogs] = useState([]);
 
@@ -24,23 +27,28 @@ const Userblogs = () => {
     }, []);
     console.log(blogs);
     return (
-        <div>
+
+        <Container style={{ margin: 'auto', marginTop: '30px' }}>
             {blogs && blogs.length > 0 ? (
-                blogs.map((blog) => (
-                    <Blogcard
-                        id={blog._id}
-                        isUser={true}
-                        title={blog.title}
-                        description={blog.description}
-                        image={blog.image}
-                        username={blog.user.username}
-                        time={blog.createdAt}
-                    />
-                ))
+                <Row className="justify-content-center">
+                    {blogs.map((blog) => (
+                        <Col key={blog._id} xs={12} sm={7} md={4} className="d-flex justify-content-center mb-4">
+                            <Blogcard
+                                id={blog._id}
+                                isUser={true}
+                                title={blog.title}
+                                description={blog.description}
+                                image={blog.image}
+                                username={blog.user.username}
+                                time={blog.createdAt}
+                            />
+                        </Col>
+                    ))}
+                </Row>
             ) : (
-                <h1>You Havent Created a blog</h1>
+                <h1>You Haven't Created a Blog</h1>
             )}
-        </div>
+        </Container >
     );
-};
+}
 export default Userblogs

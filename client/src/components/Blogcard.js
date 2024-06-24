@@ -365,7 +365,7 @@ export default function Blogcard({
         <Card className="mb-4" style={{ width: '100%', maxWidth: '400px', borderRadius: '20px', boxShadow: '5px 5px 10px #ccc' }}>
             <Card.Header>
                 <div className="d-flex align-items-center">
-                    <Badge bg="secondary" className="me-2">{username}</Badge>
+                    <Badge bg="success" className="me-2">{username}</Badge>
                     <small className="text-muted">{username}</small>
                     <small className="text-muted ms-auto">{new Date(time).toLocaleString()}</small>
                 </div>
