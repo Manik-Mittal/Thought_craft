@@ -106,7 +106,7 @@ const Login = () => {
                 <Wrapper>
                     <TextField variant="standard" onChange={(e) => setName(e.target.value)} label="Enter Username" />
                     <TextField variant="standard" label="Enter Password" onChange={(e) => setPassword(e.target.value)} />
-                    <Button className="first" variant="contained" onClick={submitlogin}>Login</Button>
+                    <Button className="first" variant="contained" color='success' onClick={submitlogin}>Login</Button>
                     <p style={{ textAlign: 'center' }}>OR</p>
                     <Button onClick={submithandler} variant="text">Create an account</Button>
                 </Wrapper>
@@ -115,7 +115,7 @@ const Login = () => {
                     <TextField variant="standard" label="Enter Username" onChange={(e) => setName(e.target.value)} />
                     <TextField variant="standard" label="Enter Email" onChange={(e) => setEmail(e.target.value)} />
                     <TextField variant="standard" label="Enter Password" onChange={(e) => setPassword(e.target.value)} />
-                    <Button className="first" variant="contained" onClick={signupHandler}>Sign Up</Button>
+                    <Button className="first" variant="contained" color='success' onClick={signupHandler}>Sign Up</Button>
                     <p style={{ textAlign: 'center' }}>OR</p>
                     <Button onClick={submithandler} variant="text">Login</Button>
                 </Wrapper>

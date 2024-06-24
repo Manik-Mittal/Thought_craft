@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Link } from "react";
 import axios from "axios";
 import Blogcard from "../components/Blogcard";
 import Grid from '@mui/material/Grid';
-
+import BannerWithVideo from "./BannerWithVideo";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+import TypeWriterEffect from "../components/TypeWriterEffect";
+import { Button } from "@mui/material";
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   //get blogs
@@ -61,9 +62,37 @@ const Blogs = () => {
 
       <div className="banner">
 
-      </div>
+        <div>
+          <TypeWriterEffect />
 
-      <div className="row row-cols-1 row-cols-md-3 g-4" style={{ margin: '20px' }}>
+        </div>
+
+        <div style={{ position: 'absolute', border: '1px solid black', borderRadius: '20px', bottom: '200px', left: '50%', transform: 'translateX(-50%)', zIndex: 1, textAlign: 'center' }}>
+
+          <a href="#Blogs" className="btn btn-success" style={{
+            width: '14rem',
+            height: '4rem',
+            textAlign: 'center',
+            display: 'flex',
+            color: 'black',
+            fontSize: '1.8rem',
+            borderRadius: '20px',
+
+
+
+            backgroundColor: '#F6DCAC',
+
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>READ</a>
+
+        </div>
+
+
+      </div >
+
+      <div className="row row-cols-1 row-cols-md-3 g-4" style={{ margin: '20px' }} id="Blogs">
         {blogs.map((blog) => (
           <Col key={blog._id} xs={12} sm={6} md={4} className="d-flex justify-content-center">
             <Blogcard

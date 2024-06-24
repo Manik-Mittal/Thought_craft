@@ -18,7 +18,6 @@ function App() {
       <Toaster />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/myblogs" element={<Userblogs />} />
         <Route path="/create" element={<CreateBlog />} />
         <Route path="/blogs" element={<Blogs />} />

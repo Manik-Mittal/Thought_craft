@@ -16,13 +16,13 @@ router.post('/create-blog', createBlogController)
 
 // //update blog
 
-router.put('/update-blog:id', updateBlogController)
+router.put('/update-blog/:id', updateBlogController)
 
 // //get single blog
 router.get('/all-blogs:id', getSingleBlogController)
 
 // //delete blog
-router.delete('/delete-blog:id', deleteBlogController)
+router.delete('/delete-blog/:id', deleteBlogController)
 
 //get user blogs
 router.get("/user-blog/:id", userBlogController)

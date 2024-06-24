@@ -3,8 +3,11 @@ import axios from "axios";
 import Blogcard from "../components/Blogcard";
 import '/Users/manikmittal/Documents/Thought_craft/client/src/App.css'; // Make sure to include the path to your CSS file
 import { Grid } from "@mui/material";
+import BannerWithVideo from "./BannerWithVideo";
 
 const Userblogs = () => {
+
+
     const [blogs, setBlogs] = useState([]);
 
     // Get user blogs
@@ -29,7 +32,10 @@ const Userblogs = () => {
 
     return (
         <>
-x
+            <div className="banner">
+                <BannerWithVideo />
+
+            </div>
             <div className=''>
                 <div className='blog-content'>
                     <Grid container spacing={3}>
