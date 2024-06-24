@@ -1,46 +1,58 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Blogcard from "../components/Blogcard";
+import '/Users/manikmittal/Documents/Thought_craft/client/src/App.css'; // Make sure to include the path to your CSS file
+import { Grid } from "@mui/material";
 
-import axios from 'axios'
-import Blogcard from '../components/Blogcard'
-const Home = () => {
-    const [blogs, setBlogs] = useState([])
+const Userblogs = () => {
+    const [blogs, setBlogs] = useState([]);
 
-    const getAllBlogs = async () => {
+    // Get user blogs
+    const getUserBlogs = async () => {
         try {
-            const { data } = await axios.get('http://localhost:8080/api/v1/blog/all-blogs')
-            if (data && data.success) {
-                console.log(data);
-                setBlogs(data.blogs)
-            }
+            const id = JSON.parse(localStorage.getItem("auth"));
+            const id1 = id.user._id;
+            const { data } = await axios.get(`http://localhost:8080/api/v1/blog/all-blogs`);
+            if (data.success) {
 
+                setBlogs(data.userBlog.blogs);
+
+            }
         } catch (error) {
             console.log(error);
-
         }
-    }
+    };
+
     useEffect(() => {
-        getAllBlogs();
-    }, [])
+        getUserBlogs();
+    }, []);
+
     return (
         <>
-            {
-                blogs.map((blog) => (
-                    console.log(blog),
-
-                    <Blogcard
-                        key={blog.id} // Add a unique key prop if possible
-                        title={blog.title}
-                        description={blog.description}
-                        image={blog.image}
-                        username={blog.user.username}
-                        // console.log()
-                        time={blog.createdAt}
-                      
-                    />
-                ))
-            }
+x
+            <div className=''>
+                <div className='blog-content'>
+                    <Grid container spacing={3}>
+                        {blogs && blogs.length > 0 ? (
+                            blogs.map((blogs) => (
+                                <Blogcard
+                                    key={blogs._id} // Add a unique key prop
+                                    title={blogs.title}
+                                    description={blogs.description}
+                                    image={blogs.image}
+                                    username={blogs.user.username}
+                                    time={blogs.createdAt}
+                                />
+                            ))
+                        ) : (
+                            <h1>You haven't created a blog</h1>
+                        )}
+                    </Grid>
+                </div>
+            </div>
         </>
     );
+
 };
 
-export default Home;
+export default Userblogs;

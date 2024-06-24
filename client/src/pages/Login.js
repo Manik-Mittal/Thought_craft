@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Box, TextField, Button, styled } from '@mui/material';
 import { toast } from 'react-hot-toast';
+import { useAuth } from '../context/auth';
+import { useNavigate } from 'react-router-dom';
 const Component = styled(Box)`
+
     width: 400px;
     padding: 4vh;
     box-sizing: border-box;
@@ -39,22 +42,29 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [username, setName] = useState('');
     const [password, setPassword] = useState('');
+    const [auth, setAuth] = useAuth();
     const [status, setStatus] = useState(true);
     const submithandler = () => {
         setStatus(!status);
 
     };
+    const navigate = useNavigate();
 
     const submitlogin = async () => {
         try {
             const res = await axios.post("http://localhost:8080/api/v1/user/login", {
                 username, password
             });
-            if (res && res.data.success === true) {
-                toast.success("Logged in successfully")
-                localStorage.setItem("auth", JSON.stringify(res.data))
+            if (res && res.data.success) {
+                toast.success(res.data && res.data.message);
+                setAuth({
+                    ...auth,
+                    user: res.data.loggedUser,
+                    token: res.data.token,
+                });
+                localStorage.setItem("auth", JSON.stringify(res.data));
+                navigate('/home')
             }
-
 
         } catch (error) {
             console.log(error);
@@ -78,7 +88,7 @@ const Login = () => {
 
         } catch (error) {
             toast.error("something went wrong");
-            
+
 
 
         }

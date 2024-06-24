@@ -25,6 +25,6 @@ router.get('/all-blogs:id', getSingleBlogController)
 router.delete('/delete-blog:id', deleteBlogController)
 
 //get user blogs
-router.get('/user-blog:id',userBlogController)
+router.get("/user-blog/:id", userBlogController)
 
 module.exports = router

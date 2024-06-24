@@ -156,8 +156,8 @@ exports.updateBlogController = async (req, res) => {
 
 exports.userBlogController = async (req, res) => {
     try {
-        const { id } = req.params
-        const userBlog = await userModel.findById(id).populate("blogs")
+        // const { id } = req.params
+        const userBlog = await userModel.findById(req.params.id).populate("blogs")
         if (!userBlog) {
             return res.status(405).send({
                 success: false,
@@ -170,7 +170,7 @@ exports.userBlogController = async (req, res) => {
             userBlog
         })
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return res.status(500).send({
             success: false,
             message: "error in call back function",

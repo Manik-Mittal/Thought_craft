@@ -5,6 +5,10 @@ import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home';
 import Userblogs from './pages/Userblogs';
+import CreateBlog from './pages/CreateBlog';
+import Blogs from './pages/Blogs';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function App() {
   return (
@@ -16,6 +20,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/myblogs" element={<Userblogs />} />
+        <Route path="/create" element={<CreateBlog />} />
+        <Route path="/blogs" element={<Blogs />} />
       </Routes>
     </div>
   );
