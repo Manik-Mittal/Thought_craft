@@ -63,7 +63,7 @@ const Login = () => {
                     token: res.data.token,
                 });
                 localStorage.setItem("auth", JSON.stringify(res.data));
-                navigate('/home')
+                navigate('/blogs')
             }
 
         } catch (error) {
@@ -82,6 +82,8 @@ const Login = () => {
             if (res && res.data.success === true) {
                 toast.success("Registered successfully")
                 localStorage.setItem("auth", JSON.stringify(res.data))
+                navigate('/blogs')
+
 
             }
 

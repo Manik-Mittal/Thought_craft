@@ -1,6 +1,6 @@
 import { AppBar, Toolbar, Typography, styled, Box, Button } from "@mui/material";
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import App from "../App";
 import { useAuth } from "../context/auth";
 
@@ -17,9 +17,11 @@ const Container = styled(Toolbar)`
 `
 
 const Header = () => {
+    const navigate = useNavigate();
     const handleLogout = () => {
         localStorage.clear()
         setAuth(null)
+        navigate('/blogs')
 
     }
     const [auth, setAuth] = useAuth();
