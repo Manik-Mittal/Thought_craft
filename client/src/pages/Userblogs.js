@@ -4,6 +4,7 @@ import Blogcard from "../components/Blogcard";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { url } from "../url";
 const Userblogs = () => {
     const [blogs, setBlogs] = useState([]);
 
@@ -13,7 +14,7 @@ const Userblogs = () => {
             const id = JSON.parse(localStorage.getItem("auth"));
             const id1 = id.user._id;
             console.log(id1)
-            const { data } = await axios.get(`http://localhost:8080/api/v1/blog/user-blog/${id1}`);
+            const { data } = await axios.get(`${url}/api/v1/blog/user-blog/${id1}`);
             if (data.success) {
                 setBlogs(data.userBlog.blogs);
             }

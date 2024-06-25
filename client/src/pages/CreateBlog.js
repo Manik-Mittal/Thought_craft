@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import { TextareaAutosize } from '@mui/material';
+import { url } from "../url";
 
 const CreateBlog = () => {
 
@@ -28,7 +29,7 @@ const CreateBlog = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.post("http://localhost:8080/api/v1/blog/create-blog", {
+            const { data } = await axios.post(`${url}/api/v1/blog/create-blog`, {
                 title: inputs.title,
                 description: inputs.description,
                 image: inputs.image,

@@ -4,6 +4,7 @@ import { Box, TextField, Button, styled } from '@mui/material';
 import { toast } from 'react-hot-toast';
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
+import { url } from '../url';
 const Component = styled(Box)`
 
     width: 400px;
@@ -52,7 +53,7 @@ const Login = () => {
 
     const submitlogin = async () => {
         try {
-            const res = await axios.post("http://localhost:8080/api/v1/user/login", {
+            const res = await axios.post(`${url}/api/v1/user/login`, {
                 username, password
             });
             if (res && res.data.success) {
@@ -64,6 +65,7 @@ const Login = () => {
                 });
                 localStorage.setItem("auth", JSON.stringify(res.data));
                 navigate('/blogs')
+                window.location.reload();
             }
 
         } catch (error) {

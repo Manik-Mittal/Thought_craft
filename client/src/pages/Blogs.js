@@ -9,12 +9,13 @@ import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TypeWriterEffect from "../components/TypeWriterEffect";
 import { Button } from "@mui/material";
+import { url } from "../url";
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
   //get blogs
   const getAllBlogs = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/api/v1/blog/all-blogs");
+      const { data } = await axios.get(`${url}/api/v1/blog/all-blogs`);
       if (data?.success) {
         setBlogs(data?.blogs);
       }
@@ -77,11 +78,7 @@ const Blogs = () => {
             color: 'black',
             fontSize: '1.8rem',
             borderRadius: '20px',
-
-
-
             backgroundColor: '#F6DCAC',
-
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',

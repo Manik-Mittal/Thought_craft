@@ -10,6 +10,7 @@ import { Box, IconButton } from "@mui/material";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { url } from '../url';
 
 export default function Blogcard({
     title,
@@ -31,7 +32,7 @@ export default function Blogcard({
     const truncatedDescription = wordCount > 50 ? `${description.split(" ").slice(0, 50).join(" ")}...` : description;
     const handleDelete = async () => {
         try {
-            const { data } = await axios.delete(`http://localhost:8080/api/v1/blog/delete-blog/${id}`);
+            const { data } = await axios.delete(`${url}/api/v1/blog/delete-blog/${id}`);
             if (data?.success) {
                 toast.success("Deleted Successfully")
                 window.location.reload();
@@ -41,9 +42,12 @@ export default function Blogcard({
         }
     };
     const navigate = useNavigate();
-    const handleEdit = () => {
+    // const handleEdit = () => {
+    //     navigate(`/blog-details/${id}`);
+    // };
+    const moreinfo = () => {
         navigate(`/blog-details/${id}`);
-    };
+    }
 
     return (
         <Card className="mb-4" style={{ width: '100%', maxWidth: '400px', borderRadius: '20px', boxShadow: '5px 5px 10px #ccc' }}>
@@ -71,9 +75,14 @@ export default function Blogcard({
                     {readMore ? description : truncatedDescription}
                 </Card.Text>
                 {wordCount > 50 && (
-                    <Button variant="link" className="text-primary p-0 align-self-start" onClick={toggleReadMore}>
-                        {readMore ? " Show Less" : " Read More"}
-                    </Button>
+                    <>
+                        {/* <Button variant="link" className="text-primary p-0 align-self-start" onClick={toggleReadMore}>
+                            {readMore ? " Show Less" : " Read More"}
+                        </Button> */}
+                        <Button variant="contained" className="text-primary p-0 align-self-start" onClick={moreinfo}>
+                            {/* {readMore ? " Show Less" : " Read More"} */} Read More
+                        </Button>
+                    </>
                 )}
             </Card.Body>
         </Card>

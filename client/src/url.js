@@ -1,0 +1,1 @@
+export const url = 'https://thought-craft.onrender.com';

@@ -8,6 +8,7 @@ import Userblogs from './pages/Userblogs';
 import CreateBlog from './pages/CreateBlog';
 import Blogs from './pages/Blogs';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import BlogDetails from './pages/BlogDetails';
 
 
 function App() {
@@ -17,10 +18,13 @@ function App() {
 
       <Toaster />
       <Routes>
+
+        <Route path="/" element={<Blogs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/myblogs" element={<Userblogs />} />
         <Route path="/create" element={<CreateBlog />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blog-details/:id" element={<BlogDetails />} />
       </Routes>
     </div>
   );
