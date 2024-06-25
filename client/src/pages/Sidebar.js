@@ -1,5 +1,5 @@
 import React from 'react';
-import '/Users/manikmittal/Documents/Thought_craft/client/src/pages/sidebar.css'; // Assuming you have a Sidebar.css file for custom styles
+
 import { Link } from 'react-router-dom';
 
 const Sidebar = () => {

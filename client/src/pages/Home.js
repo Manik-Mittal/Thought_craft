@@ -1,64 +1,63 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Blogcard from "../components/Blogcard";
-import '/Users/manikmittal/Documents/Thought_craft/client/src/App.css'; // Make sure to include the path to your CSS file
-import { Grid } from "@mui/material";
-import BannerWithVideo from "./BannerWithVideo";
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import Blogcard from "../components/Blogcard";
+// import { Grid } from "@mui/material";
+// import BannerWithVideo from "./BannerWithVideo";
 
-const Userblogs = () => {
+// const Userblogs = () => {
 
 
-    const [blogs, setBlogs] = useState([]);
+//     const [blogs, setBlogs] = useState([]);
 
-    // Get user blogs
-    const getUserBlogs = async () => {
-        try {
-            const id = JSON.parse(localStorage.getItem("auth"));
-            const id1 = id.user._id;
-            const { data } = await axios.get(`http://localhost:8080/api/v1/blog/all-blogs`);
-            if (data.success) {
+//     // Get user blogs
+//     const getUserBlogs = async () => {
+//         try {
+//             const id = JSON.parse(localStorage.getItem("auth"));
+//             const id1 = id.user._id;
+//             const { data } = await axios.get(`http://localhost:8080/api/v1/blog/all-blogs`);
+//             if (data.success) {
 
-                setBlogs(data.userBlog.blogs);
+//                 setBlogs(data.userBlog.blogs);
 
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+//             }
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     };
 
-    useEffect(() => {
-        getUserBlogs();
-    }, []);
+//     useEffect(() => {
+//         getUserBlogs();
+//     }, []);
 
-    return (
-        <>
-            <div className="banner">
-                <BannerWithVideo />
+//     return (
+//         <>
+//             <div className="banner">
+//                 <BannerWithVideo />
 
-            </div>
-            <div className=''>
-                <div className='blog-content'>
-                    <Grid container spacing={3}>
-                        {blogs && blogs.length > 0 ? (
-                            blogs.map((blogs) => (
-                                <Blogcard
-                                    key={blogs._id} // Add a unique key prop
-                                    title={blogs.title}
-                                    description={blogs.description}
-                                    image={blogs.image}
-                                    username={blogs.user.username}
-                                    time={blogs.createdAt}
-                                />
-                            ))
-                        ) : (
-                            <h1>You haven't created a blog</h1>
-                        )}
-                    </Grid>
-                </div>
-            </div>
-        </>
-    );
+//             </div>
+//             <div className=''>
+//                 <div className='blog-content'>
+//                     <Grid container spacing={3}>
+//                         {blogs && blogs.length > 0 ? (
+//                             blogs.map((blogs) => (
+//                                 <Blogcard
+//                                     key={blogs._id} // Add a unique key prop
+//                                     title={blogs.title}
+//                                     description={blogs.description}
+//                                     image={blogs.image}
+//                                     username={blogs.user.username}
+//                                     time={blogs.createdAt}
+//                                 />
+//                             ))
+//                         ) : (
+//                             <h1>You haven't created a blog</h1>
+//                         )}
+//                     </Grid>
+//                 </div>
+//             </div>
+//         </>
+//     );
 
-};
+// };
 
-export default Userblogs;
+// export default Userblogs;

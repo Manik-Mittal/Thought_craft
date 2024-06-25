@@ -78,13 +78,14 @@ const Login = () => {
 
     const signupHandler = async () => {
         try {
-            const res = await axios.post("http://localhost:8080/api/v1/user/register", {
+            const res = await axios.post(`${url}/api/v1/user/register`, {
                 username, email, password
             });
             if (res && res.data.success === true) {
                 toast.success("Registered successfully")
                 localStorage.setItem("auth", JSON.stringify(res.data))
                 navigate('/blogs')
+                window.location.reload();
 
 
             }
